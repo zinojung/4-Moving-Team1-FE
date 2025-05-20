@@ -22,7 +22,7 @@ type Props = {
   onReject?: () => void;
   onViewDetail?: () => void;
   showOverlay?: boolean;
-  rejectedMessage?: string;
+  rejectionMessage?: string;
 };
 
 /**
@@ -39,7 +39,7 @@ type Props = {
  * @param {Date} movingDate - 예정된 이사 날짜
  * @param {string} departure - 출발지 주소
  * @param {string} destination - 도착지 주소
- * @param {string} rejectedMessage - 반려시 작성한 메시지
+ * @param {string} rejectionMessage - 반려시 작성한 메시지
  * @param {boolean} isConfirmed - 견적이 확정되었는지 여부
  * @param {Date} requestDate - 견적 요청 생성 시간
  * @param {number} [price] - 견적 금액 (선택적)
@@ -61,7 +61,7 @@ type Props = {
  *   onSendEstimate={() => console.log('견적 보내기')}
  *   onReject={() => console.log('반려')}
  *   onViewDetail={() => console.log('상세보기')}
- *   rejectedMessage={'반려시 작성한 메시지'}
+ *   rejectionMessage={'반려시 작성한 메시지'}
  * />
  */
 function CustomerCardInEstimate({
@@ -77,7 +77,7 @@ function CustomerCardInEstimate({
   onReject,
   onViewDetail,
   showOverlay,
-  rejectedMessage,
+  rejectionMessage,
 }: Props) {
   const currentDate = new Date();
   const isPastMovingDate = isBefore(movingDate, currentDate);
@@ -100,10 +100,10 @@ function CustomerCardInEstimate({
   const formattedDeparture = departure.split(' ').slice(0, 2).join(' ');
   const formattedDestination = destination.split(' ').slice(0, 2).join(' ');
 
-  const onViewRejectedMessage = (rejectedMessage?: string) => {
+  const onViewRejectionMessage = (rejectionMessage?: string) => {
     Swal.fire({
       title: '반려 메시지',
-      text: rejectedMessage,
+      text: rejectionMessage,
     });
   };
 
@@ -175,7 +175,7 @@ function CustomerCardInEstimate({
               <div className="max-w-[108px] lg:max-w-[123px]">
                 <ButtonOutlined
                   intent="active"
-                  onClick={() => onViewRejectedMessage(rejectedMessage)}
+                  onClick={() => onViewRejectionMessage(rejectionMessage)}
                 >
                   <span className="text-[14px] lg:text-[16px] px-3">상세보기</span>
                 </ButtonOutlined>
